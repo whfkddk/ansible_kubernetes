@@ -1,0 +1,14 @@
+- hosts: all
+#   become: true
+  
+  tasks:
+  - name: create a docker image with deployed war file
+    command: docker build --tag=whfkddk/docker -f Dockerfile .
+
+  - name: push the image on Docker Hub
+    command: docker image push whfkddk/docker
+    ignore_errors: yes
+
+  - name: remove the docker image from the ansible server
+    command: docker image rm whfkddk/docker
+    ignore_errors: yes
